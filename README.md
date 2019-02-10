@@ -25,6 +25,7 @@ Example 2 - USB charger in an airport paid for with Nano
 * The callback server detects the incoming send block and pushes the data over the websockets connection to the ESP32
 * The device checks the block and turns on the USB port (time depends on amount of Nano sent)
 * This has been implemented, see [arduino_esp32](https://github.com/jamescoxon/Nano_Callback_System/tree/master/arduino_esp32) for more infomation.
+* [Youtube - Simple example of triggering with a send block](https://youtu.be/LOb4rLssOxY)
 * [Youtube - Example of Hardware](https://www.youtube.com/watch?v=FJB87_jbJ6k&feature=youtu.be) (please note this is an old implementation of the concept.)
 
 ### Desktop Notifications
