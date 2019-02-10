@@ -8,6 +8,10 @@ The system works in this order:
 
 Currently a test server is running: `ws://yapraiwallet.space/call` (currently does not require an API key, just use "0")
 
+## Why and Why Nano?
+You don't need to hold a wallet (either full or light) on a device that just needs to initiate an action based on a Nano transaction, just need to detect the incoming block and trigger the action.
+Nano is ideal for this as its feeless and fast enough to do this all in real time, the user will get a very quick response back from the device/system. In theory you could do the same with any crypto however you won't get the same advantages.
+
 ## Use Cases
 ### Embedded Hardware
 An internet connected embedded hardware device can connect via websockets to the callback server and monitor for activity of a particular address, this allows a low powered device not to need a full node to function. 
@@ -57,4 +61,4 @@ The linux python client will only show blocks in the terminal.
 `python3 nano_iot_client.py ws://yapraiwallet.space/call 0 xrb_1w4h9mk7nyzjdy8bt3o5u46uwrpdt6e4xaosja7yduz55jfiecmirdxhnz9z`
 
 ## Status
-Currently the system lacks any true authentication or security however this is something that will be implemented, it will be up to the service provider to decided how much they want to implement (it may be acceptable to have less security if your transactions are very small).
+Currently the system lacks any true authentication or security however this is something that will be implemented, it will be up to the service provider to decided how much they want to implement (it may be acceptable to have less security if your transactions are very small). Authentication will likely include the use of an api key but also will add the ability to actually track the account and check the hash/state blocks themselves.
