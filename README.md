@@ -24,8 +24,8 @@ Example 2 - USB charger in an airport paid for with Nano
 * User sends a set amount of Nano to the displayed address (scan the QR code)
 * The callback server detects the incoming send block and pushes the data over the websockets connection to the ESP32
 * The device checks the block and turns on the USB port (time depends on amount of Nano sent)
-
-See [arduino_esp32](https://github.com/jamescoxon/Nano_Callback_System/tree/master/arduino_esp32) for more infomation.
+* This has been implemented, see [arduino_esp32](https://github.com/jamescoxon/Nano_Callback_System/tree/master/arduino_esp32) for more infomation.
+* [Youtube - Example of Hardware](https://www.youtube.com/watch?v=FJB87_jbJ6k&feature=youtu.be) (please note this is an old implementation of the concept.)
 
 ### Desktop Notifications
 Requirements - python3.7
