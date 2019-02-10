@@ -25,6 +25,7 @@
 
 #define SSID_NAME ""
 #define SSID_PASS ""
+#define TRACKING_ADDRESS ""
 
 WiFiMulti WiFiMulti;
 WebSocketsClient webSocket;
@@ -62,7 +63,7 @@ void webSocketEvent(WStype_t type, uint8_t * payload, size_t length) {
 
 	 		// send message to server when Connected
       
-      doc["address"] = "xrb_1w4h9mk7nyzjdy8bt3o5u46uwrpdt6e4xaosja7yduz55jfiecmirdxhnz9z";
+      doc["address"] = TRACKING_ADDRESS;
       doc["api_key"] = "0";
       char output[512];
       serializeJson(doc, output);
