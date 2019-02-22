@@ -27,8 +27,10 @@ import tornado.iostream
 import tornado.tcpserver
 import tornado.web
 import tornado.websocket
+from collections import defaultdict
 
-client_address = {}
+client_addresses = defaultdict(list)
+client_accounts = defaultdict(list)
 
 class Data_Callback(tornado.web.RequestHandler):
     @tornado.gen.coroutine
@@ -37,12 +39,13 @@ class Data_Callback(tornado.web.RequestHandler):
         post_data = json.loads(self.request.body.decode('utf-8'))
 #        print("{}: {}".format(receive_time, post_data))
         block_data = json.loads(post_data['block'])
-        if block_data['link_as_account'] in client_address:
+        if block_data['link_as_account'] in client_addresses:
             tracking_address = block_data['link_as_account']
-            client_ws = client_address[tracking_address]
-            print("{}: {}".format(receive_time, client_ws, post_data))
-            client_ws.write_message(post_data)
-            print("Sent data")
+            clients = client_addresses[tracking_address]
+            for client in clients:
+                print("{}: {}".format(receive_time, client, post_data))
+                client.write_message(post_data)
+                print("Sent data")
 
 class WSHandler(tornado.websocket.WebSocketHandler):
     def check_origin(self, origin):
@@ -60,17 +63,23 @@ class WSHandler(tornado.websocket.WebSocketHandler):
                 if 'address' not in ws_data:
                     raise Exception('Incorrect data from client: {}'.format(ws_data))
                 print(ws_data['address'])
-                client_address[ws_data['address']] = self
-                print(client_address)
+                client_addresses[ws_data['address']].append(self)
+                print(client_addresses)
+                client_accounts[self].append(ws_data['address'])
 
             except Exception as e:
                 print("Error {}".format(e))
 
     def on_close(self):
         print('Client disconnected - {}'.format(self))
-        account = (list(client_address.keys())[list(client_address.values()).index(self)])
-        client_address.pop(account)
-        print(client_address)
+        accounts = client_accounts[self]
+        for account in accounts:
+            client_addresses[account].remove(self)
+            if len(client_addresses[account]) == 0:
+                del client_addresses[account]
+        del client_accounts[self]
+        print(client_addresses)
+        print(client_accounts)
 
 application = tornado.web.Application([
     (r"/callback/", Data_Callback),
